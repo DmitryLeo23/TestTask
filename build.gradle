@@ -1,9 +1,10 @@
 plugins {
+    id 'com.github.johnrengelman.shadow' version '7.1.0'
     id 'java'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
+group 'test.task.eurora'
+version '1.0'
 
 repositories {
     mavenCentral()
@@ -11,9 +12,16 @@ repositories {
 
 dependencies {
     implementation 'com.googlecode.sli4j:sli4j-slf4j-simple:2.0'
-    implementation 'org.apache.commons:commons-lang3:3.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+shadowJar {
+    baseName = project.group
+    version = project.version
+    manifest {
+        attributes 'Main-Class': 'task.TestApp'
+    }
 }
 
 test {
