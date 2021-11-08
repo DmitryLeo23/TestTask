@@ -30,8 +30,9 @@ public class EuroraHttpHandler implements HttpHandler {
         var responseStream = httpExchange.getResponseBody();
         var response = "Method Not Allowed";
         responseStream.write(response.getBytes(StandardCharsets.UTF_8));
+        responseStream.flush();
         responseStream.close();
-        httpExchange.close();
+
     }
 
     private void handleResponse(HttpExchange httpExchange) throws IOException {
@@ -42,20 +43,23 @@ public class EuroraHttpHandler implements HttpHandler {
             var responseStream = httpExchange.getResponseBody();
             var response = "It works";
             responseStream.write(response.getBytes(StandardCharsets.UTF_8));
+            responseStream.flush();
             responseStream.close();
         } else if (url.equals("/ping") || url.equals("/ping/")) {
             httpExchange.sendResponseHeaders(200, 0);
             var responseStream = httpExchange.getResponseBody();
             var response = "ok";
             responseStream.write(response.getBytes(StandardCharsets.UTF_8));
+            responseStream.flush();
             responseStream.close();
         } else {
             httpExchange.sendResponseHeaders(404, 0);
             var responseStream = httpExchange.getResponseBody();
             var response = "Not Found";
             responseStream.write(response.getBytes(StandardCharsets.UTF_8));
+            responseStream.flush();
             responseStream.close();
         }
-        httpExchange.close();
+
     }
 }
